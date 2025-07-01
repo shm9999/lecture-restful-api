@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: my-restful-service
+  messages:
+    basename: messages
 
 logging:
   level:
