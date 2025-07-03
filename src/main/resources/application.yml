@@ -7,9 +7,6 @@ spring:
   messages:
     basename: messages
   # springframework.web.servlet.mvc.condition.PatternsRequestCondition.getPatterns()" because "this.condition" is null 예외 해결을 위한 조치
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
 logging:
   level:

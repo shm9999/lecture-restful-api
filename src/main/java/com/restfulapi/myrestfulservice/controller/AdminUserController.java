@@ -9,7 +9,7 @@ import com.restfulapi.myrestfulservice.bean.AdminUserV2;
 import com.restfulapi.myrestfulservice.bean.User;
 import com.restfulapi.myrestfulservice.dao.UserDaoService;
 import com.restfulapi.myrestfulservice.exception.UserNotFoundException;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
