@@ -3,7 +3,7 @@ package com.restfulapi.myrestfulservice.controller;
 import com.restfulapi.myrestfulservice.bean.User;
 import com.restfulapi.myrestfulservice.dao.UserDaoService;
 import com.restfulapi.myrestfulservice.exception.UserNotFoundException;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
