@@ -11,3 +11,9 @@ spring:
 logging:
   level:
     org.springframework: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
