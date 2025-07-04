@@ -32,6 +32,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	// http://localhost:8088/ 호출하면 hal 페이지 나옴
 	implementation 'org.springframework.data:spring-data-rest-hal-explorer'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 
 	/* swagger + spring boot 2.x */
 //	implementation 'io.springfox:springfox-boot-starter:3.0.0'
