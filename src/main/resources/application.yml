@@ -7,6 +7,23 @@ spring:
   messages:
     basename: messages
   # springframework.web.servlet.mvc.condition.PatternsRequestCondition.getPatterns()" because "this.condition" is null 예외 해결을 위한 조치
+  security:
+    user:
+      name: username
+      password: passw0rd
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    defer-datasource-initialization: true # hibernate 기동시 초기 설정 스크립트 읽어오도록 세팅
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
 
 logging:
   level:
