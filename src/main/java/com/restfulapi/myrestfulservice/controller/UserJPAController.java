@@ -1,16 +1,17 @@
 package com.restfulapi.myrestfulservice.controller;
 
 import com.restfulapi.myrestfulservice.bean.User;
+import com.restfulapi.myrestfulservice.bean.UserWithCount;
 import com.restfulapi.myrestfulservice.exception.UserNotFoundException;
 import com.restfulapi.myrestfulservice.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,11 +29,17 @@ public class UserJPAController {
     }
 
     @GetMapping("/users")
-    public List<User> retrieveAllUsers() {
-        return userRepository.findAll();
+    public UserWithCount retrieveAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        UserWithCount userWithCount = new UserWithCount();
+        userWithCount.setCount(users.size());
+        userWithCount.setUsers(users);
+
+        return userWithCount;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity retrieveUserById(@PathVariable int id) {
         Optional<User> user =  userRepository.findById(id);
 
@@ -46,6 +53,24 @@ public class UserJPAController {
         entityModel.add(linTo.withRel("all-users")); // http://localhost:8088/users -> all-users
 
         return ResponseEntity.ok(entityModel);
+    }
+
+    @DeleteMapping("/users/{id}")
+    public void deleteUserById(@PathVariable int id) {
+        userRepository.deleteById(id);
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        User savedUser = userRepository.save(user);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+
+
+        return ResponseEntity.created(location).build();
     }
 
 }
