@@ -1,5 +1,6 @@
 package com.restfulapi.myrestfulservice.controller;
 
+import com.restfulapi.myrestfulservice.bean.Post;
 import com.restfulapi.myrestfulservice.bean.User;
 import com.restfulapi.myrestfulservice.bean.UserWithCount;
 import com.restfulapi.myrestfulservice.exception.UserNotFoundException;
@@ -69,8 +70,17 @@ public class UserJPAController {
                 .buildAndExpand(savedUser.getId())
                 .toUri();
 
-
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping("/users/{id}/posts")
+    public List<Post> retrieveAllPostsByUserId(@PathVariable int id) {
+        Optional<User> user = userRepository.findById(id);
+        if (!user.isPresent()) {
+            throw new UserNotFoundException("id-" + id);
+        }
+
+        return user.get().getPosts();
     }
 
 }
